@@ -7,5 +7,6 @@ namespace Senai.Peoples.WebApi.Repositories
 {
     public class FuncionariosRepositories
     {
+
     }
 }
