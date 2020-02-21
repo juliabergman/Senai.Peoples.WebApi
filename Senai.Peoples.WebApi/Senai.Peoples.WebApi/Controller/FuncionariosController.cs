@@ -13,7 +13,7 @@ namespace Senai.Peoples.WebApi.Controller
     [Route("api/[Controller]")]
     [ApiController]
 
-    public class FuncionariosController: ControllerBase
+    public class FuncionariosController : ControllerBase
     {
         private IFuncionariosInterface _funcionariosRepositories { get; set; }
 
@@ -40,20 +40,43 @@ namespace Senai.Peoples.WebApi.Controller
         [HttpPut]
         public IActionResult Atualizar(int id, FuncionariosDomains funcionarios)
         {
-            throw new NotImplementedException();
+            if (_funcionariosRepositories.BuscarPorId(funcionarios.IdFuncionarios) == null)
+            {
+                return BadRequest("Funcionário não encontrado :( ");
+            }
+
+            try {
+                _funcionariosRepositories.Atualizar(id, funcionarios);
+            return Ok();
+            } catch (Exception e) {
+                return BadRequest(e);
+            }
         }
 
 
         [HttpDelete("{id}")]
         public IActionResult Deletar(int id)
         {
-            throw new NotImplementedException();
+            _funcionariosRepositories.Deletar(id);
+            try{
+
+                _funcionariosRepositories.Deletar(id);
+                return Ok("Funcionário deletado! ");
+            }catch(Exception e){
+                return BadRequest(e);
+
+            }
+
+            
+
         }
 
         [HttpGet("{id}")]
-        public  FuncionariosDomains BuscarPorId(int id)
+        public FuncionariosDomains BuscarPorId(int id)
         {
-            throw new NotImplementedException();
+
+            FuncionariosDomains funcionarioBuscado = _funcionariosRepositories.BuscarPorId(id);
+
+            return funcionarioBuscado;
         }
     }
-}
