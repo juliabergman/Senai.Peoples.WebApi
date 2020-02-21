@@ -66,13 +66,14 @@ namespace Senai.Peoples.WebApi.Repositories
             }
         }
 
-        public void Cadastrar(int id)
+        public void Cadastrar(int id, FuncionariosDomains funcionario)
         {
+
             using (SqlConnection con = new SqlConnection(stringConexao))
             {
-                string queryInsert = "INSERT INTO id (Nome) VALUES (@Nome)";
+                string queryInsert = "INSERT INTO Funcionarios (Nome) VALUES (@Nome)";
                 SqlCommand cmd = new SqlCommand(queryInsert, con);
-                cmd.Parameters.AddWithValue("@Nome", id);
+                cmd.Parameters.AddWithValue("@Nome", funcionario.Nome);
                 con.Open();
                 cmd.ExecuteNonQuery();
 
@@ -101,7 +102,7 @@ namespace Senai.Peoples.WebApi.Repositories
 
             using (SqlConnection con = new SqlConnection(stringConexao))
             {
-                string querySelectAll = "SELECT Id, Nome from Funcionarios";
+                string querySelectAll = "SELECT IdFuncionarios, Nome, Sobrenome from Funcionarios";
 
                 con.Open();
                 SqlDataReader rdr;
@@ -113,7 +114,8 @@ namespace Senai.Peoples.WebApi.Repositories
                         FuncionariosDomains funcionario= new FuncionariosDomains
                         {
                             IdFuncionarios = Convert.ToInt32(rdr[0]),
-                            Nome = rdr["Nome"].ToString()
+                            Nome = rdr["Nome"].ToString(),
+                            Sobrenome = rdr ["Sobrenome"].ToString()
                         };
 
                         funcionarios.Add(funcionario);

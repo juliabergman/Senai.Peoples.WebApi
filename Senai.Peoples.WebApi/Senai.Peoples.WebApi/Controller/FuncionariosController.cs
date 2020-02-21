@@ -23,7 +23,7 @@ namespace Senai.Peoples.WebApi.Controller
 
         }
         [HttpGet]
-        public IEnumerable<FuncionariosDomains> Get()
+        public IEnumerable<FuncionariosDomains> Listar()
         {
             return _funcionariosRepositories.Listar();
         }
@@ -37,10 +37,7 @@ namespace Senai.Peoples.WebApi.Controller
         }
 
 
-
-
-
-        [HttpGet]
+        [HttpPut]
         public IActionResult Atualizar(int id, FuncionariosDomains funcionarios)
         {
             throw new NotImplementedException();
@@ -58,14 +55,5 @@ namespace Senai.Peoples.WebApi.Controller
         {
             throw new NotImplementedException();
         }
-
-        [HttpPost]
-        public List<FuncionariosDomains> Listar()
-        {
-            throw new NotImplementedException();
-        }
-
-      
-
     }
 }
