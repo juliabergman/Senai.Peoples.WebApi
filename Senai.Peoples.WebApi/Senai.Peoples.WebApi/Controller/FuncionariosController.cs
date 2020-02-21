@@ -13,7 +13,7 @@ namespace Senai.Peoples.WebApi.Controller
     [Route("api/[Controller]")]
     [ApiController]
 
-    public class FuncionariosController: IFuncionariosInterface
+    public class FuncionariosController: ControllerBase
     {
         private IFuncionariosInterface _funcionariosRepositories { get; set; }
 
@@ -29,27 +29,32 @@ namespace Senai.Peoples.WebApi.Controller
         }
 
         [HttpPost]
-        public IActionResult Cadastrar(int id)
+        public IActionResult Cadastrar(int id, FuncionariosDomains novoFuncionario)
         {
-            throw new NotImplementedException();
+            _funcionariosRepositories.Cadastrar(id, novoFuncionario);
+
+            return StatusCode(201);
         }
 
 
-        [HttpPut]
-        public void Atualizar(int id, FuncionariosDomains funcionarios)
+
+
+
+        [HttpGet]
+        public IActionResult Atualizar(int id, FuncionariosDomains funcionarios)
         {
             throw new NotImplementedException();
         }
 
 
         [HttpDelete("{id}")]
-        public void Deletar(int id)
+        public IActionResult Deletar(int id)
         {
             throw new NotImplementedException();
         }
 
-        [HttpPut("{id}")]
-        public FuncionariosDomains BuscarPorId(int id)
+        [HttpGet("{id}")]
+        public  FuncionariosDomains BuscarPorId(int id)
         {
             throw new NotImplementedException();
         }
@@ -60,11 +65,7 @@ namespace Senai.Peoples.WebApi.Controller
             throw new NotImplementedException();
         }
 
-        [HttpPost]
-        void IFuncionariosInterface.Cadastrar(int id)
-        {
-            throw new NotImplementedException();
-        }
+      
 
     }
 }
