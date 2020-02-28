@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Senai.Peoples.WebApi.Controller
 {
     [Produces("application/json")]
-    [Route("api/[Controller]")]
+    [Route("api/[controller]")]
     [ApiController]
 
     public class FuncionariosController : ControllerBase
@@ -23,20 +23,29 @@ namespace Senai.Peoples.WebApi.Controller
 
         }
         [HttpGet]
-        public IEnumerable<FuncionariosDomains> Listar()
+        public IEnumerable <FuncionariosDomains> Listar()
         {
             return _funcionariosRepositories.Listar();
         }
-
+        
+        //cadastrando o amigo 
         [HttpPost]
         public IActionResult Cadastrar(int id, FuncionariosDomains novoFuncionario)
         {
+            if(novoFuncionario.Nome == null){
+                return BadRequest("Nome obrigatório, poxa!");
+            }
+            if (novoFuncionario.Sobrenome == null)
+            {
+                return BadRequest("Sobrenome obrigatório, poxa!");
+            }
+            
             _funcionariosRepositories.Cadastrar(id, novoFuncionario);
 
-            return StatusCode(201);
+            return Created("http:localhost:500/api/Funcionarios", novoFuncionario);
         }
 
-
+        //atualizando o carinha
         [HttpPut]
         public IActionResult Atualizar(int id, FuncionariosDomains funcionarios)
         {
@@ -51,23 +60,23 @@ namespace Senai.Peoples.WebApi.Controller
             } catch (Exception e) {
                 return BadRequest(e);
             }
+            
         }
 
 
         [HttpDelete("{id}")]
         public IActionResult Deletar(int id)
         {
-            _funcionariosRepositories.Deletar(id);
+           FuncionariosDomains funcionarioBuscado = _funcionariosRepositories.BuscarPorId(id);
             try{
 
-                _funcionariosRepositories.Deletar(id);
+                _funcionariosRepositories.Deletar(funcionarioBuscado.IdFuncionarios);
                 return Ok("Funcionário deletado! ");
             }catch(Exception e){
                 return BadRequest(e);
-
             }
 
-            
+           
 
         }
 
@@ -80,3 +89,4 @@ namespace Senai.Peoples.WebApi.Controller
             return funcionarioBuscado;
         }
     }
+}

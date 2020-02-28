@@ -8,7 +8,7 @@ namespace Senai.Peoples.WebApi.Interfaces
 {
     interface IFuncionariosInterface
     {
-        List<FuncionariosDomains> Listar();
+        List <FuncionariosDomains> Listar();
 
         void Cadastrar(int id, FuncionariosDomains funcionarios);
 

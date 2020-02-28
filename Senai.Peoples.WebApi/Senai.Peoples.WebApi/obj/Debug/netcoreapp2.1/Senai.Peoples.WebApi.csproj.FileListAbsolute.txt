@@ -11,4 +11,4 @@ C:\Users\fic\Desktop\Senai.Peoples.WebApi\Senai.Peoples.WebApi\Senai.Peoples.Web
 C:\Users\fic\Desktop\Senai.Peoples.WebApi\Senai.Peoples.WebApi\Senai.Peoples.WebApi\obj\Debug\netcoreapp2.1\Senai.Peoples.WebApi.RazorTargetAssemblyInfo.cache
 C:\Users\fic\Desktop\Senai.Peoples.WebApi\Senai.Peoples.WebApi\Senai.Peoples.WebApi\obj\Debug\netcoreapp2.1\Senai.Peoples.WebApi.dll
 C:\Users\fic\Desktop\Senai.Peoples.WebApi\Senai.Peoples.WebApi\Senai.Peoples.WebApi\obj\Debug\netcoreapp2.1\Senai.Peoples.WebApi.pdb
-C:\Users\fic\Desktop\Senai.Peoples.WebApi\Senai.Peoples.WebApi\Senai.Peoples.WebApi\bin\Debug\netcoreapp2.1\Properties\launchSettings.json
+C:\Users\fic\Desktop\Senai.Peoples.WebApi\Senai.Peoples.WebApi\Senai.Peoples.WebApi\obj\Debug\netcoreapp2.1\Senai.Peoples.WebApi.csproj.CoreCompileInputs.cache

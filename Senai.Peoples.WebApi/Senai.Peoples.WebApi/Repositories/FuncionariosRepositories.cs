@@ -10,7 +10,7 @@ namespace Senai.Peoples.WebApi.Repositories
 {
     public class FuncionariosRepositories : IFuncionariosInterface
     {
-        private string stringConexao = "Data Source=DESKTOP-N-1S-DEV-17\\SQLEXPRESS; initial catalog=T_Peoples; user Id=sa; pwd=sa@132";
+        private string stringConexao = "Data Source=N-1S-DEV-17\\SQLEXPRESS; initial catalog=T_Peoples; user Id=sa; pwd=sa@132";
 
         public void Atualizar(int id, FuncionariosDomains funcionarios)
         {
@@ -23,11 +23,13 @@ namespace Senai.Peoples.WebApi.Repositories
             {
 
                 string queryUpdate = "UPDATE funcionarios SET Nome = @Nome WHERE Id = @ID";
+                //string queryUpdate = "UPDATE funcionarios SET Sobrenome = @Sobrenome WHERE Id = @ID";
 
                 using (SqlCommand cmd = new SqlCommand(queryUpdate, con))
                 {
-                    cmd.Parameters.AddWithValue("@ID",  id);
+                    cmd.Parameters.AddWithValue("@ID", id);
                     cmd.Parameters.AddWithValue("@Nome", funcionarios.Nome);
+                    //cmd.Parameters.AddWithValue("@Sobrenome", funcionarios.Sobrenome);
 
                     con.Open();
 
@@ -41,14 +43,15 @@ namespace Senai.Peoples.WebApi.Repositories
         {
             using (SqlConnection con = new SqlConnection(stringConexao))
             {
-                string querySelectById = "SELECT Id, Nome FROM funcionarios WHERE Id = @ID";
+                string querySelectById = "SELECT IdFuncionarios, Nome, Sobrenome FROM funcionarios WHERE IdFuncionarios = @Id";
                 con.Open();
+
                 SqlDataReader rdr;
 
 
                 using (SqlCommand cmd = new SqlCommand(querySelectById, con))
                 {
-                    cmd.Parameters.AddWithValue("@ID", id);
+                    cmd.Parameters.AddWithValue("@Id", id);
                     rdr = cmd.ExecuteReader();
 
                     if (rdr.Read())
@@ -56,7 +59,8 @@ namespace Senai.Peoples.WebApi.Repositories
                         FuncionariosDomains funcionarios = new FuncionariosDomains
                         {
                             IdFuncionarios = Convert.ToInt32(rdr["IdFuncionarios"]),
-                            Nome = rdr["Nome"].ToString()
+                            Nome = rdr["Nome"].ToString(),
+                            Sobrenome= rdr["Sobrenome"].ToString()
 
                         };
                         return funcionarios;
@@ -71,25 +75,29 @@ namespace Senai.Peoples.WebApi.Repositories
 
             using (SqlConnection con = new SqlConnection(stringConexao))
             {
-                string queryInsert = "INSERT INTO Funcionarios (Nome) VALUES (@Nome)";
+                string queryInsert = "INSERT INTO Funcionarios (Nome, Sobrenome) VALUES (@Nome, @Sobrenome)";
                 SqlCommand cmd = new SqlCommand(queryInsert, con);
                 cmd.Parameters.AddWithValue("@Nome", funcionario.Nome);
+                cmd.Parameters.AddWithValue("@Sobrenome", funcionario.Sobrenome);
                 con.Open();
                 cmd.ExecuteNonQuery();
+
 
             }
         }
 
+        // SÓ DELETA O  QUERIDO AMIGO POR ID, NAO PRECISA DE NOME E NEM SOBRENOME ?
         public void Deletar(int id)
         {
             using (SqlConnection con = new SqlConnection(stringConexao))
-            
+                
             {
-                string queryDelete = "DELETE FROM id WHERE id = @ID";
+                string queryDelete = "DELETE IdFuncionarios FROM Funcionarios WHERE IdFuncionarios = @ID";
 
                 using (SqlCommand cmd = new SqlCommand(queryDelete, con))
                 {
                     cmd.Parameters.AddWithValue("@ID", id);
+           
                     con.Open();
                     cmd.ExecuteNonQuery();
                 }
